@@ -26,9 +26,14 @@
 !4_archive/**/*.gitkeep
 
 # Ignore everything in 5_system
-5_system/**
-!5_system/**/
-!5_system/**/*.gitkeep
+# 5_system/**
+# !5_system/**/
+# !5_system/**/*.gitkeep
+
+# Ignore everything in 5_system
+maps_of_content**
+!maps_of_content**/
+!maps_of_content**/*.gitkeep
 
 
 
