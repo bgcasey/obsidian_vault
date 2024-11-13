@@ -1,0 +1,41 @@
+
+# Ignore everything in 0_periodic and its subdirectories
+0_periodic/**
+!0_periodic/**/
+!0_periodic/**/*.gitkeep
+
+
+# Ignore everything in 1_projects
+1_projects/*
+!1_projects/**/*.gitkeep
+!1_projects/**/*.gitkeep
+
+# Ignore everything in 2_areas
+2_areas/**
+!2_areas/**/
+!2_areas/**/*.gitkeep
+
+# Ignore everything in 3_resources
+3_resources/**
+!3_resources/**/
+!3_resources/**/*.gitkeep
+
+# Ignore everything in 4_archive
+4_archive/**
+!4_archive/**/
+!4_archive/**/*.gitkeep
+
+# Ignore everything in 5_system
+5_system/**
+!5_system/**/
+!5_system/**/*.gitkeep
+
+
+
+# Ignore .pandoc and .trash directories
+.pandoc/**
+.trash/**
+
+# Ignore all .json files with "workplace" in the filename
+**/*workplace*.json
+
