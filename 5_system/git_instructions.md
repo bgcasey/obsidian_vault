@@ -13,8 +13,8 @@ cd /Users/brendancasey/Dropbox/0_obsidian
 git init 
 git remote add origin https://github.com/bgcasey/obsidian_vault.git
 git add . 
-git commit -m "Initial commit" 
 git status
+git commit -m "Initial commit" 
 git push -u origin main
 git pull origin main
 ```

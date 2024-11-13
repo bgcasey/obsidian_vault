@@ -1,14 +1,5 @@
----
-title: readme
-date: 2024-11-12
-type: general
-tags: " #obsidian  "
-description: Readme for the Obsidian vault.
----
 
-
-
-## Vault Structure
+# Obsidian Vault
 
 **Periodic notes**: Daily, weekly, and monthly notes.
 
