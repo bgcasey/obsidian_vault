@@ -35,7 +35,8 @@
 # Ignore .pandoc and .trash directories
 .pandoc/**
 .trash/**
+.obsidian/**
 
 # Ignore all .json files with "workplace" in the filename
 **/*workplace*.json
-
+**/*workspace*.json
