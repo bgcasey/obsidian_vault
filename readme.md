@@ -11,10 +11,31 @@ Organized using the  **PARA** method:
 
 Various markdown note templates for [obsidian](https://obsidian.md/). 
 
-The templates require the following obsidian community plugins:
-- Tasks
-- Dataview
+---
+### Community Plugins
 
-The templates can be applied to new markdown files using the Templater community plugin. 
+The vault takes advantage of the following community plugins:
+
+- **Better Export PDF**
+- **Better Word Count**
+- **Chronology**
+- **Dataview**
+- **Multi-Column Markdown**
+- **Numerals**
+- **Advanced Slides**
+- **Day Planner**
+- **Excel to Markdown Table**
+- **File Link**
+- **Hotkeys for Templates**
+- **Minimal Settings**
+- **Pandoc**
+- **Pandoc Reference List**
+- **Projects**
+- **Tasks Plugin**
+- **Table Editor Obsidian**
+- **Tag Wrangler**
+- **Templater-Obsidian**
+
+
 
 Stored in this [github repo]
