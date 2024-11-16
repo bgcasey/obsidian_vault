@@ -14,7 +14,7 @@ not done
 
 sort by happens
 tags do not include #personal
-(tags include #abmi/GENWRK ) OR (tags include #ualberta/postdoc/admin )
+(tags include #abmi/ADMIN  ) OR (tags include #ualberta/postdoc/admin )
 
 
 
