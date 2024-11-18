@@ -1,3 +1,12 @@
+![[IMG_6188_1 2.jpg]]
+
+> [!periodic_hub]- Periodic Notes
+> - `= "[[" + dateformat(date(today), "yyyy-MM-dd") + "|today]]"`
+> - `= "[[" + dateformat(date(yesterday), "yyyy-MM-dd") + "|yesterday]]"`
+> - `= "[[" + dateformat(date(tomorrow), "yyyy-MM-dd") + "|tomorrow]]"`
+> - `= "[[0_periodic/weekly/" + dateformat(date(sow) + dur(-1 d), "yyyy-MM-dd") + "_to_" + dateformat(date(eow) + dur(-1 d), "yyyy-MM-dd") + "|this week]]"`
+> - `= "[[0_periodic/monthly/" + dateformat(date(today), "yyyy_MM") + "|this month]]"`
+> 
 
 > [!hub_projects]- Active Projects
 > ```dataviewjs
@@ -95,7 +104,7 @@
 > [!hub_tasks]- Tasks
 > ```tasks
 > 
-> (scheduled before today) AND (not done) OR (done today)
+> (scheduled today) AND (not done) OR (done today)
 > 
 > sort by status
 > sort by description
@@ -159,3 +168,6 @@
 > renderTable();
 > 
 > ```
+
+
+
