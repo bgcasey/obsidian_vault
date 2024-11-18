@@ -41,19 +41,19 @@ maps_of_content**
 .pandoc/**
 .trash/**
 
-# Allow .gitkeep files in .obsidian and subdirectories
-!.obsidian/**/*.gitkeep
+# Ignore everything in .obsidian
+.obsidian/**
 
-# Allow specific directories in .obsidian
-!.obsidian/themes/
-!.obsidian/themes/minimal/
-!.obsidian/themes/minimal/**
-
+# Allow specific directories and files
 !.obsidian/snippets/
 !.obsidian/snippets/**
 
-# Ignore everything else in .obsidian
-.obsidian/**
+!.obsidian/themes/minimal/
+!.obsidian/themes/minimal/**
+
+# Allow .gitkeep files in .obsidian and subdirectories
+!.obsidian/**/*.gitkeep
+
 
 # Ignore all .json files with "workplace" in the filename
 **/*workplace*.json
