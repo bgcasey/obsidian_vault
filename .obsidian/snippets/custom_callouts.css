@@ -1,0 +1,623 @@
+/* Style for 'periodic' callout */
+.callout[data-callout="periodic"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-calendar;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="periodic"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="periodic"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="periodic"] > .callout-content {
+   margin: 0px 10px; 
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+/* Style for 'projects' callout */
+.callout[data-callout="projects"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-atom;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="projects"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold\\;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="projects"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="projects"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+/* Style for 'time' callout */
+.callout[data-callout="time"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-clock;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="time"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="time"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="time"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+/* Style for 'people' callout */
+.callout[data-callout="people"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-users;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="people"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="people"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="people"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+/* Style for 'tags' callout */
+.callout[data-callout="tags"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-tags;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="tags"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="tags"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="tags"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+/* Style for 'tasks' callout */
+.callout[data-callout="tasks"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-list-todo;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="tasks"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="tasks"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="tasks"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+
+/* Hide the icon and label for the 'blank' callout type */
+.callout[data-callout="blank"] > .callout-title {
+  display: none;
+} 
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="tasks"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="tags"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="people"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="time"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="projects"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+/* Hide the title text but keep the icon visible */
+/* .callout[data-callout="periodic"] > .callout-title .callout-title-inner {
+  display: none;
+} */
+
+
+/*--------------------------------------------*/
+/* Style for 'periodic' callout */
+.callout[data-callout="hub_periodic"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-calendar;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_periodic"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_periodic"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="hub_periodic"] > .callout-content {
+   margin: -20px 10px; 
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_periodic"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+/* Style for 'projects' callout */
+.callout[data-callout="hub_projects"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-atom;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_projects"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold\\;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_projects"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="hub_projects"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_projects"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_projects"] table {
+    font-size: 14px; /* Adjust the font size for tables */
+}
+
+.callout[data-callout="hub_projects"] table th {
+    font-size: 13px; /* Adjust the font size for table headers */
+}
+
+.callout[data-callout="hub_projects"] table td {
+    font-size: 12px; /* Adjust the font size for table cells */
+}
+
+/* Style for 'time' callout */
+.callout[data-callout="hub_time"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-clock;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_time"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_time"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="hub_time"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_time"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_time"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_time"] table {
+    font-size: 14px; /* Adjust the font size for tables */
+}
+
+.callout[data-callout="hub_time"] table th {
+    font-size: 13px; /* Adjust the font size for table headers */
+}
+
+.callout[data-callout="hub_time"] table td {
+    font-size: 12px; /* Adjust the font size for table cells */
+}
+
+/* Style for 'people' callout */
+.callout[data-callout="hub_people"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-users;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_people"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_people"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="hub_people"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_people"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_people"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_people"] table {
+    font-size: 14px; /* Adjust the font size for tables */
+}
+
+.callout[data-callout="hub_people"] table th {
+    font-size: 13px; /* Adjust the font size for table headers */
+}
+
+.callout[data-callout="hub_people"] table td {
+    font-size: 12px; /* Adjust the font size for table cells */
+}
+
+/* Style for 'tags' callout */
+.callout[data-callout="hub_tags"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-tags;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_tags"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_tags"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="hub_tags"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_tags"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_tags"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_tags"] table {
+    font-size: 14px; /* Adjust the font size for tables */
+}
+
+.callout[data-callout="hub_tags"] table th {
+    font-size: 13px; /* Adjust the font size for table headers */
+}
+
+.callout[data-callout="hub_tags"] table td {
+    font-size: 12px; /* Adjust the font size for table cells */
+}
+
+/* Style for 'tasks' callout */
+.callout[data-callout="hub_tasks"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-list-todo;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_tasks"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_tasks"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="hub_tasks"] > .callout-content {
+   margin: 0px 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_tasks"] .callout-title {
+    font-size: 14px; /* Adjust the font size for the title */
+    font-weight: bold; /* Optional: Make the title bold */
+    line-height: 1.2; /* Optional: Adjust line height for title readability */
+}
+.callout[data-callout="hub_tasks"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+
+
+
+
+/* Hide the icon and label for the 'blank' callout type */
+.callout[data-callout="hub_blank"] > .callout-title {
+  display: none;
+} 
+
+
+/* Style for 'periodic_hub' callout */
+.callout[data-callout="periodic_hub"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-calendar;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="periodic_hub"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="periodic_hub"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="periodic_hub"] > .callout-content {
+   margin: -20px 10px; 
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="periodic_hub"] .callout-title {
+    font-size: 14px; /* Adjust the font size for the title */
+    font-weight: bold; /* Optional: Make the title bold */
+    line-height: 1.2; /* Optional: Adjust line height for title readability */
+}
+.callout[data-callout="periodic_hub"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}

@@ -1,0 +1,83 @@
+/* 
+CSS Snippet: Applies heading numbering when 'heading-numbers' 
+class is present in the document YAML:
+
+"cssclass: heading-numbers"
+*/
+
+/* Root variables to define the initial settings */
+:root {
+    /* Set the initial value of the counter */
+    --initial: 0;
+
+    /* Define the delimiter between the heading numbers */
+    --delim: '.';
+
+    /* Define the numbering format for each heading level */
+    --h1-num: counter(h1);
+    --h2-num: var(--h1-num) var(--delim) counter(h2);
+    --h3-num: var(--h2-num) var(--delim) counter(h3);
+    --h4-num: var(--h3-num) var(--delim) counter(h4);
+    --h5-num: var(--h4-num) var(--delim) counter(h5);
+    --h6-num: var(--h5-num) var(--delim) counter(h6);
+}
+
+/* Apply the heading numbering only when the 'heading-numbers' class is present */
+.heading-numbers :is(.cm-header, h1, h2, h3, h4, h5, h6)::before {
+    position: absolute;
+    transform: translateX(calc(-100% - 2rem));
+    opacity: 0.3;
+    font-size: 0.8em; /* Shrinks the size of the heading numbers */
+}
+
+/* Reset the counters globally */
+.heading-numbers {
+    counter-reset: h1;
+}
+
+/* Define how the numbering appears for each heading level */
+.heading-numbers .cm-header-1::before, .heading-numbers h1::before {
+    counter-increment: h1;
+    counter-reset: h2;
+    content: var(--h1-num);
+}
+
+.heading-numbers .cm-header-2::before, .heading-numbers h2::before {
+    counter-increment: h2;
+    counter-reset: h3;
+    content: var(--h2-num);
+}
+
+.heading-numbers .cm-header-3::before, .heading-numbers h3::before {
+    counter-increment: h3;
+    counter-reset: h4;
+    content: var(--h3-num);
+}
+
+.heading-numbers .cm-header-4::before, .heading-numbers h4::before {
+    counter-increment: h4;
+    counter-reset: h5;
+    content: var(--h4-num);
+}
+
+.heading-numbers .cm-header-5::before, .heading-numbers h5::before {
+    counter-increment: h5;
+    counter-reset: h6;
+    content: var(--h5-num);
+}
+
+.heading-numbers .cm-header-6::before, .heading-numbers h6::before {
+    counter-increment: h6;
+    content: var(--h6-num);
+}
+
+/* Hide heading formatting characters when editing */
+.heading-numbers .cm-formatting-header::before {
+    display: none;
+}
+
+/* Prevent double heading when editing */
+.heading-numbers .cm-formatting-header ~ .cm-header::before {
+    opacity: 0;
+}
+

@@ -1,0 +1,5 @@
+/* Target the Date/Time column (first column) */
+.custom-width-table td:first-child {
+    min-width: 500px; /* Adjust width as necessary */
+    white-space: nowrap; /* Prevent wrapping */
+}

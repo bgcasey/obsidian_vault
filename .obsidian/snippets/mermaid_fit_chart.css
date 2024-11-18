@@ -1,0 +1,12 @@
+/* Obsidian snippet to limit the width of mermaid diagrams
+ */
+
+.mermaid svg {
+
+min-width: 350px;
+
+max-width: 650px;
+
+height: auto;
+
+}

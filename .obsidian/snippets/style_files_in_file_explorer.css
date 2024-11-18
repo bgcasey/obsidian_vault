@@ -1,0 +1,48 @@
+
+/* Highlight multiple specific folders in Obsidian's file explorer */
+.nav-folder-title[data-path="0_periodic"]{
+    color: #BFAF7A; /* Change the text color */
+    background-color: #BFAF7A20; /* Change the background color */
+    /*font-weight: bold; /* Make the folder name bold */
+}
+
+
+
+.nav-folder-title[data-path="1_projects"],
+.nav-folder-title[data-path="1_projects/active"],
+.nav-folder-title[data-path="1_projects/active/reproducibility"],
+.nav-folder-title[data-path="1_projects/active/remote_sensing_integration"],
+.nav-folder-title[data-path="1_projects/active/abmi_onboarding"],
+.nav-folder-title[data-path="1_projects/active/invasive_species_indicator"],
+.nav-folder-title[data-path="1_projects/active/pileated_woodpecker"]{
+    color: #76A970; /* Change the text color */
+    background-color: #76A97020; /* Change the background color */
+    /*font-weight: bold; /* Make the folder name bold */
+}
+
+
+
+.nav-folder-title[data-path="2_areas"],
+.nav-folder-title[data-path="2_areas/biodiversity_indicators"],
+ .nav-folder-title[data-path="2_areas/literature"],
+ .nav-folder-title[data-path="2_areas/presentations"]{
+    color: #7CA2BF; /* Change the text color */
+    background-color: #7CA2BF20; /* Change the background color */
+    /*font-weight: bold; /* Make the folder name bold */
+}
+
+.nav-folder-title[data-path="3_resources"]{
+    color: #A37ABF; /* Change the text color */
+    background-color: #A37ABF20; /* Change the background color */
+    /*font-weight: bold; /* Make the folder name bold */
+}
+
+.nav-folder-title[data-path="4_archive"],
+.nav-folder-title[data-path="5_system"]
+/*.nav-folder-title[data-path^="4_archive"],
+.nav-file-title[data-path^="4_archive"],
+.nav-folder-title[data-path^="5_system"],
+.nav-file-title[data-path^="5_system"]*/ {
+    color: #3a3a3a; /* Change the text color */
+    /*font-weight: bold; /* Make the folder name bold */
+}

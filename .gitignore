@@ -40,7 +40,18 @@ maps_of_content**
 # Ignore .pandoc and .trash directories
 .pandoc/**
 .trash/**
+
+# Igonre files in .obsidian/
 .obsidian/**
+
+# Allow files from .obsidian/snippets
+!.obsidian/snippets/
+!.obsidian/snippets/**
+
+# Allow files from .obsidian/themes/minimal
+!.obsidian/themes/minimal/
+!.obsidian/themes/minimal/**
+
 
 # Ignore all .json files with "workplace" in the filename
 **/*workplace*.json

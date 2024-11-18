@@ -1,0 +1,17 @@
+/* Apply a light border to all images in both preview and editor modes */
+img {
+    border: 1px solid #868686; /* Light gray border */
+    border-radius: 4px;       /* Rounded corners (optional) */
+    padding: 0px;             /* Space between the border and the image */
+    /*box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow (optional) */
+}
+
+/* Ensure it applies in markdown preview mode */
+.markdown-preview-view img {
+    border: 1px solid #868686;
+}
+
+/* Ensure it applies in Live Preview (if applicable) */
+.cm-image {
+    border: 1px solid #868686;
+}
