@@ -1,0 +1,19 @@
+.workspace-tab-header[aria-label^="hub"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon
+> .document{
+    display: none;
+}
+
+.workspace-tab-header[aria-label^="hub"]
+> .workspace-tab-header-inner
+> .workspace-tab-header-inner-icon{
+  background-image: url("5_system/assets/atom");    
+  background-size: 17px 17px; /* adopt this to your file tree font height */
+    transform: translate(0px, 3px); /* to position the icon */
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 17px;
+    width: 17px;
+    margin: -4px 2px 0 0;
+}

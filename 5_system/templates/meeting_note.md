@@ -61,5 +61,13 @@ attendees:
 description: "${description}"
 ---
 
+
 `;
 %>
+
+## Agenda/Questions
+- 
+
+---
+
+## Notes
