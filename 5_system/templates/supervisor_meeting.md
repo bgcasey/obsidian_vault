@@ -66,10 +66,82 @@ description: "${description}"
 
 ---
 ## Work Summary
-### Projects
+```dataviewjs
+const tracked = {};
+const tagsRegex = /#\S+(?:\s\S+)*/g;
+const timeRegex = /^\d{2}:\d{2}-\d{2}:\d{2}\s*/; // Regex to remove time entries from tasks
 
+// Tag-to-description mapping
+const tagDescriptions = {
+  "#abmi/ADMIN": "Administrative",
+  "#abmi/BIOSCI": "Biodiversity Indicators",
+  "#abmi/BREAK": "Breaks",
+  "#abmi/EMAIL": "Email/Communication",
+  "#abmi/FRHLTH": "Forest Health",
+  "#abmi/GENWRK": "General Work",
+  "#abmi/GENRES": "General Research/Reading",
+  "#abmi/INVSPC": "Invasive Species",
+  "#abmi/MEETNG": "Meetings",
+  "#abmi/ONBOAR": "Onboarding",
+  "#abmi/PIWO": "Pileated Woodpecker (PIWO)",
+  "#abmi/PRVSIT": "Private Sites",
+  "#abmi/PRODEV": "Professional Development",
+  "#abmi/REMINT": "Remote Sensing Integration",
+  "#abmi/REPROD": "Reproducibility",
+  "#abmi/SOCIAL": "Team Building",
+};
 
+// Define the start and end dates for the desired week
+const weekEndDate = dv.current().file.frontmatter.date;
+const weekStartDate = moment(weekEndDate).add(-14, 'days').format('YYYY-MM-DD');
 
+// Gather data
+dv.pages('"0_periodic"').file.lists
+  .where(x => x.section.subpath === "Work log" && x.text.includes("#abmi") && 
+  !x.text.includes("#abmi/sick_day") && 
+  !x.text.includes("#abmi/vacation_day") && 
+  !x.text.includes("#abmi/EMAIL") && 
+  !x.text.includes("#abmi/BREAK") &&
+  !x.text.includes("#abmi/MEETNG")) // Ignore entries with #abmi/EMAIL, #abmi/BREAK, and #abmi/MEETING
+  .array()
+  .forEach(x => {
+    const date = x.path.match(/(\d{4}-\d{2}-\d{2})/)[1];
+    
+    // Check if the date falls within the specified week start and end dates
+    if (moment(date).isBetween(weekStartDate, weekEndDate, null, '[]')) {
+      const tags = x.text.match(tagsRegex)?.map(tag => tag.trim()); // Extract all hashtags
+      let description = x.text.replace(tagsRegex, '').trim(); // Remove tags from description
+      
+      // Remove time entries from the description
+      description = description.replace(timeRegex, '').trim();
+      
+      // Ignore empty descriptions
+      if (!description) return;
+      
+      // Loop through each tag and organize tasks under it
+      tags?.forEach(tag => {
+        const descriptionTag = tagDescriptions[tag] || tag; // Map tag to description
+        if (!tracked[descriptionTag]) tracked[descriptionTag] = new Set();
+        tracked[descriptionTag].add(description); // Use a Set to prevent duplicate tasks under the same tag
+      });
+    }
+  });
+
+// Build the markdown-style output
+let output = "";
+Object.keys(tracked).sort().forEach(descriptionTag => {
+  const tasks = Array.from(tracked[descriptionTag]).sort();
+  if (tasks.length === 0) return; // Skip empty categories
+  output += `### ${descriptionTag}\n`; // Header without space
+  tasks.forEach(description => {
+    output += `- ${description}\n`;
+  });
+});
+
+// Render the markdown-style summary
+dv.paragraph(output);
+
+```
 ### Meetings
 
 ```dataview  
