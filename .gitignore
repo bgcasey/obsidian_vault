@@ -58,3 +58,8 @@ maps_of_content**
 # Ignore all .json files with "workplace" in the filename
 **/*workplace*.json
 **/*workspace*.json
+
+# Allow certain assets
+!5_system/assets/daily_note.png
+
+
