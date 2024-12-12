@@ -18,3 +18,5 @@ git commit -m "Initial commit"
 git push -u origin main
 git pull origin main
 ```
+
+see [[git_terminal_command_cheat_sheet|Git Terminal Command Cheat Sheet]] for more commands.
