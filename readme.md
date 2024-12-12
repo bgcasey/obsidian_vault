@@ -39,3 +39,20 @@ The vault takes advantage of the following community plugins:
 
 
 Stored in this [github repo]
+
+---
+## Periodic notes
+
+### Daily note
+
+![daily note](./5_system/assets/daily_note.png)
+
+
+### Weekly Note
+
+
+
+
+
+
+### Monthly Note
