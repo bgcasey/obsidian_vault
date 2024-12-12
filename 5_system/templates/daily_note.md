@@ -3,7 +3,6 @@ date: {{date}}
 type: daily
 tags: "#daily/{{date:YYYY}}/{{date:MM}}"
 description: "Daily note for {{date}}"
-links: 
 ---
 
 [[<% tp.date.yesterday() %>|yesterday]]
