@@ -86,8 +86,6 @@ A DataviewJS script is included in the daily note to validate the work log and f
 A freeform space for notes, ideas, or temporary content not bound to a specific structure.
 
 
-
----
 ### Weekly Note
 
 
