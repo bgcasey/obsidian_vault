@@ -164,6 +164,18 @@ WHERE contains(type,"presentation")
 Sort file.name ASC
 ```
 
+### Papers read
+
+```dataview
+Table without ID link(file.path, title) as "Title", author as "First Author", year as "Year", description as "Description"
+From -"3_Resources/Obsidian/Templates" 
+WHERE  file.cday <= striptime(this.date)
+WHERE  file.cday >= striptime(this.date) - dur(14 days)
+WHERE contains(type,"literature")
+SORT title ASC
+
+```
+
 ---
 
 ## Notes

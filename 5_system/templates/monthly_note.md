@@ -177,109 +177,89 @@ WHERE contains(type,"presentation")
 Sort file.name ASC
 
 ```
+---
+## Papers read
+
+```dataview
+TABLE WITHOUT ID link(file.path, title) AS "Title", author AS "First Author", year AS "Year", description AS "Description"
+FROM -"3_Resources/Obsidian/Templates"
+WHERE date(file.ctime).month = this.date.month
+AND date(file.ctime).year = this.date.year
+AND contains(type, "literature")
+SORT title ASC
+
+```
 
 ---
-## Weekly Breakdown
+## Work Summary
 ```dataviewjs
 const tracked = {};
 const tagsRegex = /#\S+(?:\s\S+)*/g;
+const timeRegex = /^\d{2}:\d{2}-\d{2}:\d{2}\s*/; // Regex to remove time entries from tasks
 
 // Define the start and end dates for the desired month
 const monthStartDate = moment(dv.current().file.frontmatter.date).startOf('month');
 const monthEndDate = moment(dv.current().file.frontmatter.date).endOf('month');
 
+// Tag-to-description mapping
+const tagDescriptions = {
+  "#abmi/ADMIN": "Administrative",
+  "#abmi/BIOSCI": "Biodiversity Indicators",
+  "#abmi/FRHLTH": "Forest Health",
+  "#abmi/GENWRK": "General Work",
+  "#abmi/GENRES": "General Research/Reading",
+  "#abmi/INVSPC": "Invasive Species",
+  "#abmi/ONBOAR": "Onboarding",
+  "#abmi/PIWO": "Pileated Woodpecker (PIWO)",
+  "#abmi/PRVSIT": "Private Sites",
+  "#abmi/PRODEV": "Professional Development",
+  "#abmi/REMINT": "Remote Sensing Integration",
+  "#abmi/REPROD": "Reproducibility",
+  "#abmi/SOCIAL": "Team Building",
+};
+
 // Gather data
 dv.pages('"0_periodic"').file.lists
-  .where(x => x.section.subpath === "Work log" && 
-  x.text.includes("#abmi")).array()
+  .where(x => x.section.subpath === "Work log" && x.text.includes("#abmi")).array()
   .forEach(x => {
     const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
     if (times) {
-      const start = moment(times[1], 'HH:mm');
-      const end = moment(times[2], 'HH:mm');
-      const minutes = moment.duration(end.diff(start)).asMinutes();
       const date = x.path.match(/(\d{4}-\d{2}-\d{2})/)[1];
 
       if (moment(date).isBetween(monthStartDate, monthEndDate, null, '[]')) {
-        const weekOfMonth = moment(date).week() - moment(date).startOf('month').week() + 1;
-        const monthName = moment(date).format('MMMM');
-        const weekStart = moment(date).startOf('week').format('YYYY-MM-DD');
-        const weekEnd = moment(date).endOf('week').format('YYYY-MM-DD');
-        const week = `[${monthName}, Week ${weekOfMonth}](${weekStart}_to_${weekEnd})`;
+        const tags = x.text.match(tagsRegex)
+          ?.filter(tag => tag.startsWith("#abmi/") && 
+            !["#abmi/BREAK", "#abmi/EMAIL", "#abmi/MEETNG"].includes(tag.trim()))
+          ?.map(tag => tag.trim());
+        
+        if (!tags || tags.length === 0) return; // Ignore tasks without valid tags
 
-        const tags = x.text.match(tagsRegex)?.map(tag => tag.trim());
-        const description = x.text.replace(/^\d{2}:\d{2}-\d{2}:\d{2}\s+/, '');
+        let description = x.text.replace(tagsRegex, '').trim();
+        description = description.replace(timeRegex, '').trim();
 
-        if (!tracked[week]) tracked[week] = {};
-        if (tracked[week][date]) {
-          tracked[week][date].entries.push({
-            path: x.path,
-            start: start.format('HH:mm'),
-            end: end.format('HH:mm'),
-            minutes: minutes,
-            tags: tags || [],
-            description: description || ''
-          });
-          tracked[week][date].minutes += minutes;
-          tracked[week][date].tags = [...new Set(tracked[week][date].tags.concat(tags || []))];
-        } else {
-          tracked[week][date] = {
-            path: x.path,
-            entries: [{
-              path: x.path,
-              start: start.format('HH:mm'),
-              end: end.format('HH:mm'),
-              minutes: minutes,
-              tags: tags || [],
-              description: description || ''
-            }],
-            minutes: minutes,
-            tags: tags || [],
-            description: description || ''
-          };
-        }
+        tags.forEach(tag => {
+          const descriptionTag = tagDescriptions[tag] || tag;
+          if (!tracked[descriptionTag]) tracked[descriptionTag] = [];
+          tracked[descriptionTag].push({ description, date, path: x.path });
+        });
       }
     }
   });
 
-const hours = minutes => (minutes / 60).toFixed(1);
+// Render consolidated summaries by category
+Object.keys(tracked).sort().forEach(category => {
+  const tasks = tracked[category].sort((a, b) => moment(a.date).diff(moment(b.date)));
+  if (tasks.length === 0) return; // Skip empty categories
 
-const tables = {};
+  dv.header(3, category);
 
-// Iterate through tracked entries to fill the tables
-Object.keys(tracked).sort((a, b) => a.localeCompare(b))
-  .forEach(week => {
-    const weekEntries = tracked[week];
-    const table = [];
-    let totalWeekMinutes = 0;
-
-    const sortedDates = Object.keys(weekEntries).sort((a, b) => a.localeCompare(b));
-
-    sortedDates.forEach(date => {
-      const dailyEntry = weekEntries[date];
-      totalWeekMinutes += dailyEntry.minutes;
-      const link = `[[${dailyEntry.path}#Work log|${moment(date).format('dddd D MMMM')}]]`;
-
-      table.push(['**' + link + '**', '**' + hours(dailyEntry.minutes) + '**', '']);
-
-      dailyEntry.entries.sort((a, b) => moment(a.start, 'HH:mm').diff(moment(b.start, 'HH:mm'))).forEach(entry => {
-        table.push([
-          '',
-          hours(entry.minutes),
-          entry.description
-        ]);
-      });
-    });
-
-    // Add total hours for the week at the top of each week's table
-    table.unshift(['**Total Hours**', '**' + hours(totalWeekMinutes) + '**', '']);
-    tables[week] = table;
+  let output = "";
+  tasks.forEach(task => {
+    const dateLink = `[[${task.path}#Work log|${task.date}]]`;
+    output += `-  ${task.description} (${dateLink})\n`;
   });
 
-// Render tables for each week
-Object.keys(tables).forEach(week => {
-  dv.header(3, week);
-  dv.table(['Date', 'Hours', 'Description'], tables[week]); // Include 'Date', 'Hours', and 'Description' in the table header
+  dv.paragraph(output);
 });
 
 ```
