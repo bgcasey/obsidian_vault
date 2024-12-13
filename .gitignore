@@ -30,15 +30,14 @@
 !5_system/**/
 !5_system/**/*.gitkeep
 
-# Explicitly ignore tasks.md in 5_system/maps_of_content
-5_system/maps_of_content/tasks.md
+
 
 
 maps_of_content**
 !maps_of_content**/
 !maps_of_content**/*.gitkeep
-
-
+# Explicitly ignore tasks.md in 5_system/maps_of_content
+maps_of_content/tasks.md
 
 # Ignore .pandoc and .trash directories
 .pandoc/**
