@@ -29,6 +29,7 @@
 5_system/assets/**
 !5_system/assets/**/
 !5_system/assets/**/*.gitkeep
+5_system/maps_of_content/tasks.md
 
 # Ignore everything in 5_system
 maps_of_content**
@@ -43,6 +44,7 @@ maps_of_content**
 
 # Ignore everything in .obsidian
 .obsidian/**
+
 
 # Allow specific directories and files
 !.obsidian/snippets/
