@@ -1,13 +1,19 @@
+# Ignore everything in 5_system and its subdirectories
+5_system/**
+!5_system/**/
+!5_system/**/*.gitkeep
+
+# Explicitly ignore tasks.md in 5_system/maps_of_content
+5_system/maps_of_content/tasks.md
 
 # Ignore everything in 0_periodic and its subdirectories
 0_periodic/**
 !0_periodic/**/
 !0_periodic/**/*.gitkeep
 
-
 # Ignore everything in 1_projects
-1_projects/*
-!1_projects/**/*.gitkeep
+1_projects/**
+!1_projects/**/
 !1_projects/**/*.gitkeep
 
 # Ignore everything in 2_areas
@@ -25,18 +31,10 @@
 !4_archive/**/
 !4_archive/**/*.gitkeep
 
-# Ignore everything in 5_system
-5_system/assets/**
-!5_system/assets/**/
-!5_system/assets/**/*.gitkeep
-5_system/maps_of_content/tasks.md
-
-# Ignore everything in 5_system
-maps_of_content**
-!maps_of_content**/
-!maps_of_content**/*.gitkeep
-
-
+# Ignore maps_of_content explicitly
+maps_of_content/**
+!maps_of_content/**/
+!maps_of_content/**/*.gitkeep
 
 # Ignore .pandoc and .trash directories
 .pandoc/**
@@ -44,24 +42,18 @@ maps_of_content**
 
 # Ignore everything in .obsidian
 .obsidian/**
-
-
-# Allow specific directories and files
+!*.gitkeep
 !.obsidian/snippets/
 !.obsidian/snippets/**
-
 !.obsidian/themes/minimal/
 !.obsidian/themes/minimal/**
-
-# Allow .gitkeep files in .obsidian and subdirectories
 !.obsidian/**/*.gitkeep
-
 
 # Ignore all .json files with "workplace" in the filename
 **/*workplace*.json
 **/*workspace*.json
 
-# Allow certain assets
+# Allow specific assets
 !5_system/assets/daily_note.png
 
 
