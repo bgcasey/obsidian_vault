@@ -66,10 +66,16 @@ description: "${description}"
 
 ---
 ## Work Summary
+
 ```dataviewjs
 const tracked = {};
 const tagsRegex = /#\S+(?:\s\S+)*/g;
 const timeRegex = /^\d{2}:\d{2}-\d{2}:\d{2}\s*/; // Regex to remove time entries from tasks
+
+// Define the start and end dates for the desired week
+const weekEndDate = dv.current().file.frontmatter.date;
+const weekStartDate = moment(weekEndDate).add(-14, 'days').format('YYYY-MM-DD');
+
 
 // Tag-to-description mapping
 const tagDescriptions = {
@@ -89,59 +95,55 @@ const tagDescriptions = {
   "#abmi/REMINT": "Remote Sensing Integration",
   "#abmi/REPROD": "Reproducibility",
   "#abmi/SOCIAL": "Team Building",
+   "#abmi/WILDFO": "Wildland Foundations"
 };
-
-// Define the start and end dates for the desired week
-const weekEndDate = dv.current().file.frontmatter.date;
-const weekStartDate = moment(weekEndDate).add(-14, 'days').format('YYYY-MM-DD');
 
 // Gather data
 dv.pages('"0_periodic"').file.lists
-  .where(x => x.section.subpath === "Work log" && x.text.includes("#abmi") && 
-  !x.text.includes("#abmi/sick_day") && 
-  !x.text.includes("#abmi/vacation_day") && 
-  !x.text.includes("#abmi/EMAIL") && 
-  !x.text.includes("#abmi/BREAK") &&
-  !x.text.includes("#abmi/MEETNG")) // Ignore entries with #abmi/EMAIL, #abmi/BREAK, and #abmi/MEETING
-  .array()
+  .where(x => x.section.subpath === "Work log" && x.text.includes("#abmi")).array()
   .forEach(x => {
-    const date = x.path.match(/(\d{4}-\d{2}-\d{2})/)[1];
-    
-    // Check if the date falls within the specified week start and end dates
-    if (moment(date).isBetween(weekStartDate, weekEndDate, null, '[]')) {
-      const tags = x.text.match(tagsRegex)?.map(tag => tag.trim()); // Extract all hashtags
-      let description = x.text.replace(tagsRegex, '').trim(); // Remove tags from description
-      
-      // Remove time entries from the description
-      description = description.replace(timeRegex, '').trim();
-      
-      // Ignore empty descriptions
-      if (!description) return;
-      
-      // Loop through each tag and organize tasks under it
-      tags?.forEach(tag => {
-        const descriptionTag = tagDescriptions[tag] || tag; // Map tag to description
-        if (!tracked[descriptionTag]) tracked[descriptionTag] = new Set();
-        tracked[descriptionTag].add(description); // Use a Set to prevent duplicate tasks under the same tag
-      });
+    const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
+    if (times) {
+      const date = x.path.match(/(\d{4}-\d{2}-\d{2})/)[1];
+
+      if (moment(date).isBetween(weekStartDate, weekEndDate, null, '[]')) {
+        const tags = x.text.match(tagsRegex)
+          ?.filter(tag => tag.startsWith("#abmi/") && 
+            !["#abmi/BREAK", "#abmi/EMAIL", "#abmi/MEETNG", "#abmi/ADMIN"].includes(tag.trim()))
+          ?.map(tag => tag.trim());
+        
+        if (!tags || tags.length === 0) return; // Ignore tasks without valid tags
+
+        let description = x.text.replace(tagsRegex, '').trim();
+        description = description.replace(timeRegex, '').trim();
+
+        tags.forEach(tag => {
+          const descriptionTag = tagDescriptions[tag] || tag;
+          if (!tracked[descriptionTag]) tracked[descriptionTag] = [];
+          tracked[descriptionTag].push({ description, date, path: x.path });
+        });
+      }
     }
   });
 
-// Build the markdown-style output
-let output = "";
-Object.keys(tracked).sort().forEach(descriptionTag => {
-  const tasks = Array.from(tracked[descriptionTag]).sort();
+// Render consolidated summaries by category
+Object.keys(tracked).sort().forEach(category => {
+  const tasks = tracked[category].sort((a, b) => moment(a.date).diff(moment(b.date)));
   if (tasks.length === 0) return; // Skip empty categories
-  output += `### ${descriptionTag}\n`; // Header without space
-  tasks.forEach(description => {
-    output += `- ${description}\n`;
+
+  dv.header(3, category);
+
+  let output = "";
+  tasks.forEach(task => {
+    const dateLink = `[[${task.path}#Work log|${task.date}]]`;
+    output += `-  ${task.description} (${dateLink})\n`;
   });
+
+  dv.paragraph(output);
 });
 
-// Render the markdown-style summary
-dv.paragraph(output);
-
 ```
+
 ### Meetings
 
 ```dataview  

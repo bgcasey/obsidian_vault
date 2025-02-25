@@ -216,6 +216,7 @@ const tagDescriptions = {
   "#abmi/REMINT": "Remote Sensing Integration",
   "#abmi/REPROD": "Reproducibility",
   "#abmi/SOCIAL": "Team Building",
+  "#abmi/WILDFO": "Wildland Foundations"
 };
 
 // Gather data
