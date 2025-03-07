@@ -17,10 +17,18 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
 | #abmi/INVSPC | 0.35            |
 | #abmi/PIWO   | 0.35            |
 | #abmi/WILDFO | 0.10            |
-| #abmi/GENWRK | 0.20            |
 
 ```dataviewjs
 (async () => {
+
+	// Set total work hours per month
+    const WORK_HOURS_PER_MONTH = 168;
+    
+    // Set allocation for untracked work (e.g., 10%)
+    const UNTRACKED_ALLOCATION = 0.2; 
+    
+    const expectedUntrackedHours = (WORK_HOURS_PER_MONTH * UNTRACKED_ALLOCATION).toFixed(1);
+
     const tracked = {};
     const tagsRegex = /#\S+(?:,\s*#\S+)*/g;
 
@@ -111,11 +119,15 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
     // Initialize actual work hours tracking
     const totalAbmiTimes = {};
     activeProjects.forEach((_, tag) => totalAbmiTimes[tag] = 0);
+let untrackedWorkMinutes = 0; // Track minutes for untracked projects
+
 
     // Gather work log data and filter by active projects
     dv.pages('"0_periodic"').file.lists
         .where(x => x.section.subpath === "Work log" &&
             x.text.includes("#abmi") &&
+            !x.text.includes("#abmi/BREAK") &&
+            !x.text.includes("#abmi/SOCIAL") &&
             !x.text.includes("#abmi/sick_day") &&
             !x.text.includes("#abmi/vacation_day")).array()
         .forEach(x => {
@@ -138,16 +150,13 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
                     tags.forEach(tag => {
                         if (activeProjects.has(tag)) {
                             totalAbmiTimes[tag] += minutes;
-                        }
+                        } else if (tag.startsWith("#abmi/")) { untrackedWorkMinutes += minutes; }
                     });
                 }
             }
         });
 
     const hours = minutes => (minutes / 60).toFixed(1);
-
-    // Set total work hours per month
-    const WORK_HOURS_PER_MONTH = 160;
 
     // Print the total work hours for the month
     dv.paragraph(`Total work hours for ${monthName}: ${WORK_HOURS_PER_MONTH}`);
@@ -159,18 +168,29 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
         const expectedHours = (allocation * WORK_HOURS_PER_MONTH).toFixed(1);
         const workedHours = hours(totalAbmiTimes[projectTag] || 0); // Convert minutes to hours
         const hoursLeft = (expectedHours - workedHours).toFixed(1); // Compute remaining hours
-
         // Convert tag to human-readable name
         const projectName = projectLookup.get(projectTag) || projectTag.replace("#abmi/", ""); // Fallback if not found
 
         table.push([projectName, expectedHours, workedHours, hoursLeft]);
     });
 
+
+// Add row for untracked work only if there are untracked hours 
+if (untrackedWorkMinutes > 0) { 
+	const workedHours = hours(untrackedWorkMinutes); 
+	const hoursLeft = (expectedUntrackedHours - workedHours).toFixed(1);
+	table.push(["Admin, Meetings, General Work", expectedUntrackedHours, workedHours, hoursLeft]); 
+	}
+
+console.log(table);
+
+
     // Render the table
     dv.table(table[0], table.slice(1));
 })();
 
 ```
+
 
 
 ```dataviewjs
