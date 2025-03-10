@@ -20,20 +20,13 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
 
 ```dataviewjs
 (async () => {
-
-	// Set total work hours per month
     const WORK_HOURS_PER_MONTH = 168;
-    
-    // Set allocation for untracked work (e.g., 10%)
-    const UNTRACKED_ALLOCATION = 0.2; 
-    
+    const UNTRACKED_ALLOCATION = 0.2;
     const expectedUntrackedHours = (WORK_HOURS_PER_MONTH * UNTRACKED_ALLOCATION).toFixed(1);
 
-    const tracked = {};
     const tagsRegex = /#\S+(?:,\s*#\S+)*/g;
 
-    // Load the Work Code Lookup Table
-    const lookupFilePath = "5_system/tags.md"; // Adjust if needed
+    const lookupFilePath = "5_system/tags.md";
     const lookupSection = "## Work Codes";
     const lookupContent = await dv.io.load(lookupFilePath);
 
@@ -42,7 +35,6 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
         return;
     }
 
-    // Extract the month from the YAML frontmatter date
     const yamlDate = dv.current().file.frontmatter.date;
     if (!yamlDate) {
         dv.paragraph("Error: No date found in YAML.");
@@ -50,10 +42,8 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
     }
 
     const momentDate = moment(yamlDate);
-    const monthName = momentDate.format("MMMM YYYY"); // Example: "March 2025"
+    const monthName = momentDate.format("MMMM YYYY");
 
-
-    // Extract Project Names and Abbreviations from Lookup Table
     const lookupLines = lookupContent.split("\n");
     let inLookupSection = false;
     const projectLookup = new Map();
@@ -64,19 +54,18 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
             continue;
         }
         if (inLookupSection && line.startsWith("##") && line.trim() !== lookupSection) {
-            break; // Stop when next heading is found
+            break;
         }
         if (inLookupSection && line.startsWith("|") && !line.includes("---")) {
             const match = line.match(/^\|([^|]+)\|([^|]+)\|/);
             if (match) {
                 const projectName = match[1].trim();
                 const abbreviation = match[2].trim();
-                projectLookup.set(`#abmi/${abbreviation}`, projectName); // Store mapping
+                projectLookup.set(`#abmi/${abbreviation}`, projectName);
             }
         }
     }
 
-    // Load the current file content
     const filePath = dv.current().file.path;
     const fileContent = await dv.io.load(filePath);
 
@@ -85,11 +74,10 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
         return;
     }
 
-    // Extract active project tags and their allocations from "Time Budget" table
     const lines = fileContent.split("\n");
     const sectionHeading = "## Time Budget";
     let inTargetSection = false;
-    const activeProjects = new Map(); // Store project allocations
+    const activeProjects = new Map();
 
     for (const line of lines) {
         if (line.trim() === sectionHeading) {
@@ -97,32 +85,27 @@ description: Monthly note for <% tp.date.now("MMMM") %> <% tp.date.now("YYYY")%>
             continue;
         }
         if (inTargetSection && line.match(/^##+/) && line.trim() !== sectionHeading) {
-            break; // Stop at next section
+            break;
         }
         if (inTargetSection && line.startsWith("|") && !line.includes("---")) {
             const match = line.match(/^\|([^|]+)\|([^|]+)\|/);
             if (match) {
-                const projectTag = match[1].trim(); // Extract project tag
-                const allocation = parseFloat(match[2].trim()); // Extract allocation as a float
-                if (projectTag !== "Project") { // Prevent header row from being added
+                const projectTag = match[1].trim();
+                const allocation = parseFloat(match[2].trim());
+                if (projectTag !== "Project") {
                     activeProjects.set(projectTag, allocation);
                 }
             }
         }
     }
 
-
-    // Define the start and end dates for the desired month
     const monthStartDate = moment(dv.current().file.frontmatter.date).startOf('month');
     const monthEndDate = moment(dv.current().file.frontmatter.date).endOf('month');
 
-    // Initialize actual work hours tracking
     const totalAbmiTimes = {};
     activeProjects.forEach((_, tag) => totalAbmiTimes[tag] = 0);
-let untrackedWorkMinutes = 0; // Track minutes for untracked projects
+    let untrackedWorkMinutes = 0;
 
-
-    // Gather work log data and filter by active projects
     dv.pages('"0_periodic"').file.lists
         .where(x => x.section.subpath === "Work log" &&
             x.text.includes("#abmi") &&
@@ -131,7 +114,6 @@ let untrackedWorkMinutes = 0; // Track minutes for untracked projects
             !x.text.includes("#abmi/sick_day") &&
             !x.text.includes("#abmi/vacation_day")).array()
         .forEach(x => {
-            // Find the start/end times for each bullet point
             const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
             if (times) {
                 const start = moment(times[1], 'HH:mm');
@@ -139,18 +121,16 @@ let untrackedWorkMinutes = 0; // Track minutes for untracked projects
                 const minutes = moment.duration(end.diff(start)).asMinutes();
                 const dateMatch = x.path.match(/(\d{4}-\d{2}-\d{2})/);
                 const date = dateMatch ? moment(dateMatch[1], 'YYYY-MM-DD') : null;
-                if (!date) return; // Skip if date parsing fails
+                if (!date) return;
 
-                // Check if the date falls within the specified month
                 if (date.isBetween(monthStartDate, monthEndDate, null, '[]')) {
-                    // Extract tags from the note
                     const tags = x.text.match(tagsRegex)?.map(tag => tag.trim()) || [];
-
-                    // Accumulate tag-specific minutes
                     tags.forEach(tag => {
                         if (activeProjects.has(tag)) {
                             totalAbmiTimes[tag] += minutes;
-                        } else if (tag.startsWith("#abmi/")) { untrackedWorkMinutes += minutes; }
+                        } else if (tag.startsWith("#abmi/")) {
+                            untrackedWorkMinutes += minutes;
+                        }
                     });
                 }
             }
@@ -158,178 +138,287 @@ let untrackedWorkMinutes = 0; // Track minutes for untracked projects
 
     const hours = minutes => (minutes / 60).toFixed(1);
 
-    // Print the total work hours for the month
-    dv.paragraph(`Total work hours for ${monthName}: ${WORK_HOURS_PER_MONTH}`);
-
-
-    // Compute expected work hours and create table (without "Time Allocation")
     const table = [["Project", "Expected Hours", "Hours Worked", "Hours Left"]];
-    activeProjects.forEach((allocation, projectTag) => {
-        const expectedHours = (allocation * WORK_HOURS_PER_MONTH).toFixed(1);
-        const workedHours = hours(totalAbmiTimes[projectTag] || 0); // Convert minutes to hours
-        const hoursLeft = (expectedHours - workedHours).toFixed(1); // Compute remaining hours
-        // Convert tag to human-readable name
-        const projectName = projectLookup.get(projectTag) || projectTag.replace("#abmi/", ""); // Fallback if not found
+    const labels = [];
+    const expectedHours = [];
+    const workedHours = [];
 
-        table.push([projectName, expectedHours, workedHours, hoursLeft]);
+    activeProjects.forEach((allocation, projectTag) => {
+        const expected = (allocation * WORK_HOURS_PER_MONTH).toFixed(1);
+        const worked = hours(totalAbmiTimes[projectTag] || 0);
+        const remaining = (expected - worked).toFixed(1);
+        const projectName = projectLookup.get(projectTag) || projectTag.replace("#abmi/", "");
+
+        labels.push(projectName);
+        expectedHours.push(expected);
+        workedHours.push(worked);
+
+        table.push([projectName, expected, worked, remaining]);
     });
 
+    if (untrackedWorkMinutes > 0) {
+        const worked = hours(untrackedWorkMinutes);
+        const remaining = (expectedUntrackedHours - worked).toFixed(1);
+        labels.push("Admin, Meetings, General Work");
+        expectedHours.push(expectedUntrackedHours);
+        workedHours.push(worked);
 
-// Add row for untracked work only if there are untracked hours 
-if (untrackedWorkMinutes > 0) { 
-	const workedHours = hours(untrackedWorkMinutes); 
-	const hoursLeft = (expectedUntrackedHours - workedHours).toFixed(1);
-	table.push(["Admin, Meetings, General Work", expectedUntrackedHours, workedHours, hoursLeft]); 
-	}
+        table.push(["Admin, Meetings, General Work", expectedUntrackedHours, worked, remaining]);
+    }
 
-console.log(table);
+    // Print expected total work hours
+    dv.paragraph(`Expected Total Work Hours for ${monthName}: ${WORK_HOURS_PER_MONTH}`);
 
+    // Add a spacer for separation
+    dv.paragraph('<div style="height: 15px;"></div>');
 
     // Render the table
     dv.table(table[0], table.slice(1));
+
+    // Add a spacer for separation
+    dv.paragraph('<div style="height: 20px;"></div>');
+
+    // Create and render the stacked horizontal bar chart
+    const ctx = dv.el("canvas", null);
+    await import("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js");
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Worked Hours',
+                    data: workedHours,
+                    backgroundColor: 'rgba(120, 144, 156, 0.6)',
+                    borderColor: 'rgba(120, 144, 156, 1)',
+                    borderWidth: 1,
+                    barThickness: 25
+                },
+                {
+                    label: 'Remaining Hours',
+                    data: expectedHours.map((total, idx) => (total - workedHours[idx]).toFixed(1)),
+                    backgroundColor: 'rgba(176, 190, 197, 0.6)',
+                    borderColor: 'rgba(176, 190, 197, 1)',
+                    borderWidth: 1,
+                    barThickness: 25
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    beginAtZero: true
+                },
+                y: {
+                    stacked: true,
+                    categoryPercentage: 1,
+                    barPercentage: 0.9
+                }
+            }
+        }
+    });
 })();
+
 
 ```
 
 
 
 ```dataviewjs
-const tracked = {};
-const tagsRegex = /#\S+(?:,\s*#\S+)*/g;
+(async () => {
+    const tracked = {};
+    const tagsRegex = /#\S+(?:,\s*#\S+)*/g;
 
-// Define the start and end dates for the desired month
-const monthStartDate = moment(dv.current().file.frontmatter.date).startOf('month');
-const monthEndDate = moment(dv.current().file.frontmatter.date).endOf('month');
+    const lookupFilePath = "5_system/tags.md";
+    const lookupSection = "## Work Codes";
+    const lookupContent = await dv.io.load(lookupFilePath);
 
-// Gather data
-dv.pages('"0_periodic"').file.lists
-  .where(x => x.section.subpath === "Work log" && 
-  x.text.includes("#abmi") &&
-  !x.text.includes("#abmi/sick_day") && 
-  !x.text.includes("#abmi/vacation_day")).array()
-  .forEach(x => {
-    // Find the start/end times for each bullet point
-    const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
-    if (times) {
-      const start = moment(times[1], 'HH:mm');
-      const end = moment(times[2], 'HH:mm');
-      const minutes = moment.duration(end.diff(start)).asMinutes();
-      const dateMatch = x.path.match(/(\d{4}-\d{2}-\d{2})/);
-      const date = dateMatch ? moment(dateMatch[1], 'YYYY-MM-DD') : null;
-      if (!date) return; // Skip if date parsing fails
-
-      const weekStart = date.clone().startOf('week').format('YYYY-MM-DD');
-      const weekEnd = date.clone().endOf('week').format('YYYY-MM-DD');
-      const weekStartFormatted = date.clone().startOf('week').format('MM/DD');
-      const weekEndFormatted = date.clone().endOf('week').format('MM/DD');
-      const week = `[[${weekStart}_to_${weekEnd}|${weekStartFormatted} to ${weekEndFormatted}]]`; // Correctly formatted link with display text
-
-      // Check if the date falls within the specified month start and end dates
-      if (date.isBetween(monthStartDate, monthEndDate, null, '[]')) {
-        // Extract tags from the note
-        const tags = x.text.match(tagsRegex)?.map(tag => tag.trim()); // Extracts all hashtags from the note
-        const description = x.text.replace(/^(\d{2}:\d{2}-\d{2}:\d{2}\s)/, ''); // Extracting text after time values
-
-        if (!tracked[week]) tracked[week] = { entries: [], minutes: 0, tags: {} };
-        tracked[week].entries.push({
-          path: x.path,
-          start: start.format('HH:mm'),
-          end: end.format('HH:mm'),
-          minutes: minutes,
-          tags: tags || [],
-          description: description || '' // Initialize description as an empty string
-        });
-        tracked[week].minutes += minutes;
-
-        // Accumulate tag-specific minutes
-        tags?.forEach(tag => {
-          if (tag.startsWith('#abmi/')) {
-            const tagName = tag.replace('#abmi/', '');
-            if (!tracked[week].tags[tagName]) tracked[week].tags[tagName] = 0;
-            tracked[week].tags[tagName] += minutes;
-          }
-        });
-      }
+    if (!lookupContent) {
+        dv.paragraph(`Could not load work tags from ${lookupFilePath}`);
+        return;
     }
-  });
 
-const hours = minutes => (minutes / 60).toFixed(1);
+    const lookupLines = lookupContent.split("\n");
+    let inLookupSection = false;
+    const projectLookup = new Map();
 
-// Identify all unique #abmi tags
-const abmiTags = new Set();
-Object.keys(tracked).forEach(week => {
-  Object.keys(tracked[week].tags).forEach(tag => {
-    abmiTags.add(tag);
-  });
-});
+    for (const line of lookupLines) {
+        if (line.trim() === lookupSection) {
+            inLookupSection = true;
+            continue;
+        }
+        if (inLookupSection && line.startsWith("##") && line.trim() !== lookupSection) {
+            break;
+        }
+        if (inLookupSection && line.startsWith("|") && !line.includes("---")) {
+            const match = line.match(/^\|([^|]+)\|([^|]+)\|/);
+            if (match) {
+                const projectName = match[1].trim();
+                const abbreviation = match[2].trim();
+                projectLookup.set(abbreviation, projectName);
+            }
+        }
+    }
 
-// Sort abmiTags alphabetically
-const sortedAbmiTags = Array.from(abmiTags).sort();
+    const monthStartDate = moment(dv.current().file.frontmatter.date).startOf('month');
+    const monthEndDate = moment(dv.current().file.frontmatter.date).endOf('month');
 
-const table = [];
-let totalMonthTime = 0;
-const totalAbmiTimes = {};
+    dv.pages('"0_periodic"').file.lists
+        .where(x => x.section.subpath === "Work log" &&
+            x.text.includes("#abmi") &&
+            !x.text.includes("#abmi/sick_day") &&
+            !x.text.includes("#abmi/vacation_day")).array()
+        .forEach(x => {
+            const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
+            if (times) {
+                const start = moment(times[1], 'HH:mm');
+                const end = moment(times[2], 'HH:mm');
+                const minutes = moment.duration(end.diff(start)).asMinutes();
+                const dateMatch = x.path.match(/(\d{4}-\d{2}-\d{2})/);
+                const date = dateMatch ? moment(dateMatch[1], 'YYYY-MM-DD') : null;
+                if (!date) return;
 
-// Initialize total times for each abmi tag
-sortedAbmiTags.forEach(tag => {
-  totalAbmiTimes[tag] = 0;
-});
+                const weekStart = date.clone().startOf('week').format('YYYY-MM-DD');
+                const weekEnd = date.clone().endOf('week').format('YYYY-MM-DD');
+                const weekStartFormatted = date.clone().startOf('week').format('MM/DD');
+                const weekEndFormatted = date.clone().endOf('week').format('MM/DD');
+                const week = `[[${weekStart}_to_${weekEnd}|${weekStartFormatted} to ${weekEndFormatted}]]`;
 
-// Push weekly values and accumulate totals
-Object.keys(tracked)
-  .sort((a, b) => a.localeCompare(b)) // Sort weeks in ascending order
-  .forEach(week => {
-    const weekEntry = tracked[week];
-    totalMonthTime += weekEntry.minutes;
+                if (date.isBetween(monthStartDate, monthEndDate, null, '[]')) {
+                    const tags = x.text.match(tagsRegex)?.map(tag => tag.trim());
+                    const description = x.text.replace(/^(\d{2}:\d{2}-\d{2}:\d{2}\s)/, '');
 
-    // Accumulate totals for each abmi tag
-    sortedAbmiTags.forEach(tag => {
-      totalAbmiTimes[tag] += weekEntry.tags[tag] || 0;
+                    if (!tracked[week]) tracked[week] = { entries: [], minutes: 0, tags: {} };
+                    tracked[week].entries.push({
+                        path: x.path,
+                        start: start.format('HH:mm'),
+                        end: end.format('HH:mm'),
+                        minutes: minutes,
+                        tags: tags || [],
+                        description: description || ''
+                    });
+                    tracked[week].minutes += minutes;
+
+                    tags?.forEach(tag => {
+                        if (tag.startsWith('#abmi/')) {
+                            const tagName = tag.replace('#abmi/', '');
+                            if (!tracked[week].tags[tagName]) tracked[week].tags[tagName] = 0;
+                            tracked[week].tags[tagName] += minutes;
+                        }
+                    });
+                }
+            }
+        });
+
+    const hours = minutes => (minutes / 60).toFixed(1);
+
+    const abmiTags = new Set();
+    Object.keys(tracked).forEach(week => {
+        Object.keys(tracked[week].tags).forEach(tag => {
+            abmiTags.add(tag);
+        });
     });
 
-    // Push weekly summary row
-    const row = [
-      week, // Enclose week in double square brackets and link back to source file
-      hours(weekEntry.minutes)
-    ];
+    const sortedAbmiTags = Array.from(abmiTags).sort();
 
-    // Add hours for each abmi tag to the row in alphabetical order
+    const table = [];
+    let totalMonthTime = 0;
+    const totalAbmiTimes = {};
+
     sortedAbmiTags.forEach(tag => {
-      row.push(hours(weekEntry.tags[tag] || 0));
+        totalAbmiTimes[tag] = 0;
     });
 
-    table.push(row);
-  });
+    Object.keys(tracked).sort((a, b) => a.localeCompare(b)).forEach(week => {
+        const weekEntry = tracked[week];
+        totalMonthTime += weekEntry.minutes;
 
-// Create header row
-const header = ['Week', 'Total'];
-sortedAbmiTags.forEach(tag => {
-  header.push(tag.substring(0, 6)); // Truncate tag names to no more than 6 characters
-});
+        sortedAbmiTags.forEach(tag => {
+            totalAbmiTimes[tag] += weekEntry.tags[tag] || 0;
+        });
 
-// Calculate percentage row
-const percentageRow = [
-  'Percent',
-  '' // Leave total percentage blank
-];
-sortedAbmiTags.forEach(tag => {
-  const percentage = ((totalAbmiTimes[tag] / totalMonthTime) * 100).toFixed(0);
-  percentageRow.push(`${percentage}%`);
-});
-table.unshift(percentageRow); // Insert the percentage row at the top
+        const row = [week, hours(weekEntry.minutes)];
+        sortedAbmiTags.forEach(tag => {
+            row.push(hours(weekEntry.tags[tag] || 0));
+        });
 
-// Push total row below the percentage row
-const totalRow = [
-  'Total',
-  hours(totalMonthTime)
-];
-sortedAbmiTags.forEach(tag => {
-  totalRow.push(hours(totalAbmiTimes[tag]));
-});
-table.splice(1, 0, totalRow); // Insert the total row in second position
+        table.push(row);
+    });
 
-// Render the table
-dv.table(header, table);
+    const header = ['Week', 'Total'];
+    sortedAbmiTags.forEach(tag => {
+        header.push(tag.substring(0, 6));
+    });
+
+    const percentageRow = ['Percent', ''];
+    const percentages = [];
+    const projectLabels = [];
+    sortedAbmiTags.forEach(tag => {
+        const percentage = ((totalAbmiTimes[tag] / totalMonthTime) * 100).toFixed(0);
+        percentages.push(percentage);
+        percentageRow.push(`${percentage}%`);
+        projectLabels.push(projectLookup.get(tag) || tag);
+    });
+    table.unshift(percentageRow);
+
+    const totalRow = ['Total', hours(totalMonthTime)];
+    sortedAbmiTags.forEach(tag => {
+        totalRow.push(hours(totalAbmiTimes[tag]));
+    });
+    table.splice(1, 0, totalRow);
+
+    // Render the table
+    dv.table(header, table);
+
+    // Add a spacer for separation
+    dv.paragraph('<div style="height: 30px;"></div>');
+
+    // Render the percentage horizontal bar chart
+    const ctx = dv.el("canvas", null);
+    await import("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js");
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: projectLabels,
+            datasets: [{
+                label: 'Percentage Worked',
+                data: percentages,
+                backgroundColor: 'rgba(120, 144, 156, 0.6)',
+                borderColor: 'rgba(120, 144, 156, 1)',
+                borderWidth: 1,
+                barThickness: 25
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: {
+                        display: false // Disable x-axis grid
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value + "%";
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false // Disable y-axis grid
+                    }
+                }
+            }
+        }
+    });
+})();
 
 ```
 

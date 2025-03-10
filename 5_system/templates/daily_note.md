@@ -8,7 +8,7 @@ description: "Daily note for {{date:dddd, MMMM D, YYYY}}"
 [[<% tp.date.yesterday() %>|yesterday]]
 [[<% tp.date.tomorrow() %>|tomorrow]]
 [[0_periodic/weekly/<% tp.date.weekday("YYYY-MM-DD", 0) %>_to_<% tp.date.weekday("YYYY-MM-DD", 6) %>|this week]]
-[[0_periodic/monthly/<% tp.date.now("YYYY_MM") %>|this month]]
+[[0_periodic/monthly/<% tp.date.now("YYYY-MM") %>|this month]]
 
 ---
 ## Work log
