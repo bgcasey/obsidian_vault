@@ -37,25 +37,25 @@ function calculateMinutes(start, end) {
 // Check each work log entry in today's note
 lists.forEach(x => {
   const timeRangePattern = /^\d{2}:\d{2}-\d{2}:\d{2}/; // Regex for "HH:MM-HH:MM" format
-  
+
   // Track missing #abmi tags
   if (!x.text.includes("#abmi")) {
     warnings.push(`Missing #abmi tag: <div> ${x.text}</div> <br> </span>`);
   }
-  
+
   // Check for improper time format
   if (!timeRangePattern.test(x.text)) {
     warnings.push(`Improper time format: <div> ${x.text}</div> <br> </span>`);
   }
-  
-// Check for missing description (no text after time entry)
-const descriptionPattern = /^\d{2}:\d{2}-\d{2}:\d{2}\s+[^#]+/; // Ensure text exists after time and before any tags
-if (!descriptionPattern.test(x.text)) {
-  warnings.push(`Missing description after time entry:<div> ${x.text}</div> <br> </span>`);
-}
 
+  // Check for missing description, excluding #abmi/EMAIL and #abmi/BREAK
+  const hasExemptTag = /#abmi\/(EMAIL|BREAK)\b/.test(x.text);
+  const descriptionMatch = x.text.match(/^\d{2}:\d{2}-\d{2}:\d{2}\s+(.*?)\s*(#|$)/);
 
-  
+  if (!hasExemptTag && (!descriptionMatch || !descriptionMatch[1].trim())) {
+    warnings.push(`Missing description after time entry:<div> ${x.text}</div> <br> </span>`);
+  }
+
   // Calculate total time spent on #abmi/BREAK based on time range format
   if (x.text.includes("#abmi/BREAK")) {
     const timeMatch = x.text.match(/(\d{2}:\d{2})-(\d{2}:\d{2})/); // Match time ranges "HH:MM-HH:MM"
@@ -75,7 +75,7 @@ if (warnings.length > 0) {
 // Display remaining break time only if total break time is less than the maximum
 if (totalBreakMinutes < maxBreakTime) {
   const remainingMinutes = maxBreakTime - totalBreakMinutes;
-  dv.paragraph(`> [!WARNING]- ${remainingMinutes} more minutes of break time \n> `);
+  dv.paragraph(`> [!WARNING]- Take ${remainingMinutes} more minutes of break time \n> `);
 }
 
 ```
