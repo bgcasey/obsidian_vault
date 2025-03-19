@@ -9,7 +9,7 @@ description: Code for backing up this folder to github.
 
 
 ```zsh
-cd /Users/brendancasey/Dropbox/0_obsidian
+cd /Users/brendan/Dropbox/0_obsidian
 git init 
 git remote add origin https://github.com/bgcasey/obsidian_vault.git
 git add . 
@@ -20,3 +20,4 @@ git pull origin main
 ```
 
 see [[git_terminal_command_cheat_sheet|Git Terminal Command Cheat Sheet]] for more commands.
+

@@ -28,11 +28,9 @@ banked_time:
     dv.pages('"0_periodic"').file.lists
         .where(x => x.section.subpath === "Work log" &&
             x.text.includes("#abmi") &&
-            !x.text.includes("#abmi/BREAK") &&
             !x.text.includes("#abmi/sick_day") &&
             !x.text.includes("#abmi/vacation_day")).array()
         .forEach(x => {
-            // Find the start/end times for each bullet point
             const times = x.text.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})/);
             if (times) {
                 const start = moment(times[1], 'HH:mm');
@@ -61,7 +59,6 @@ banked_time:
                             description: description || ''
                         });
                         tracked[week][date].minutes += minutes;
-                        tracked[week][date].tags = [...new Set(tracked[week][date].tags.concat(tags || []))];
                     } else {
                         tracked[week][date] = {
                             path: x.path,
@@ -73,9 +70,7 @@ banked_time:
                                 tags: tags || [],
                                 description: description || ''
                             }],
-                            minutes: minutes,
-                            tags: tags || [],
-                            description: description || ''
+                            minutes: minutes
                         };
                     }
                 }
@@ -84,13 +79,12 @@ banked_time:
 
     const hours = minutes => (minutes / 60).toFixed(1);
 
-    // Identify all unique #abmi tags and sort them alphabetically
     const abmiTags = new Set();
     Object.keys(tracked).forEach(week => {
         Object.keys(tracked[week]).forEach(date => {
             tracked[week][date].entries.forEach(entry => {
                 entry.tags.forEach(tag => {
-                    if (tag.startsWith('#abmi/')) {
+                    if (tag.startsWith('#abmi/') && tag !== '#abmi/BREAK') {
                         abmiTags.add(tag.replace('#abmi/', ''));
                     }
                 });
@@ -103,33 +97,30 @@ banked_time:
     let totalWeekTime = 0;
     const totalAbmiTimes = {};
 
-    // Initialize total times for each abmi tag
     sortedAbmiTags.forEach(tag => {
         totalAbmiTimes[tag] = 0;
     });
 
-    // Push daily values and accumulate totals
-    Object.keys(tracked)
-        .forEach(week => {
-            Object.keys(tracked[week])
-                .forEach(date => {
-                    const dailyEntry = tracked[week][date];
-                    const dailyTotal = dailyEntry.entries.reduce((acc, curr) => acc + curr.minutes, 0);
-                    totalWeekTime += dailyTotal;
+    Object.keys(tracked).forEach(week => {
+        Object.keys(tracked[week])
+            .sort((a, b) => moment(a).diff(moment(b)))
+            .forEach(date => {
+                const dailyEntry = tracked[week][date];
+                const dailyTotal = dailyEntry.minutes;
+                totalWeekTime += dailyTotal;
 
-                    // Accumulate totals for each abmi tag
-                    sortedAbmiTags.forEach(tag => {
-                        totalAbmiTimes[tag] += getTaggedMinutes(dailyEntry.entries, `#abmi/${tag}`);
-                    });
-
-                    const link = `[[${dailyEntry.path}#Work log|${moment(date).format('dddd D MMMM')}]]`;
-                    const row = [link, hours(dailyTotal)];
-                    sortedAbmiTags.forEach(tag => {
-                        row.push(hours(getTaggedMinutes(dailyEntry.entries, `#abmi/${tag}`)));
-                    });
-                    table.push(row);
+                sortedAbmiTags.forEach(tag => {
+                    totalAbmiTimes[tag] += getTaggedMinutes(dailyEntry.entries, `#abmi/${tag}`);
                 });
-        });
+
+                const link = `[[${dailyEntry.path}#Work log|${moment(date).format('dddd D MMMM')}]]`;
+                const row = [link, hours(dailyTotal)];
+                sortedAbmiTags.forEach(tag => {
+                    row.push(hours(getTaggedMinutes(dailyEntry.entries, `#abmi/${tag}`)));
+                });
+                table.push(row);
+            });
+    });
 
     const header = ['Day/Week', 'Total'];
     sortedAbmiTags.forEach(tag => {
@@ -153,7 +144,6 @@ banked_time:
 
     dv.table(header, table);
 
-    // Add a spacer for separation
     dv.paragraph('<div style="height: 30px;"></div>');
 
     const ctx = dv.el("canvas", null);
@@ -202,6 +192,7 @@ banked_time:
         }, 0);
     }
 })();
+
 
 ```
 ---
