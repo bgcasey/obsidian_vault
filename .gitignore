@@ -64,5 +64,9 @@ maps_of_content/tasks.md
 
 # Allow certain assets
 !5_system/assets/daily_note.png
-!5_system/assets/weekly_note_front_matter.png!5_system/assets/weekly_note_meetings_presentations_papers.png!5_system/assets/weekly_note_tasks.png!5_system/assets/weekly_note_time_budget.png!5_system/assets/weekly_note_work_summary.png
+!5_system/assets/weekly_note_front_matter.png
+!5_system/assets/weekly_note_meetings_presentations_papers.png
+!5_system/assets/weekly_note_tasks.png
+!5_system/assets/weekly_note_time_budget.png
+!5_system/assets/weekly_note_work_summary.png
 
