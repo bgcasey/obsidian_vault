@@ -1,6 +1,18 @@
 
 # Obsidian Vault
 
+## Table of Contents
+- [Overview](#overview)
+- [Dependencies](#dependencies)
+- [Periodic notes](#periodic-notes)
+  - [Daily note](#daily-note)
+  - [Weekly Note](#weekly-note)
+  - [Monthly Note](#monthly-note)
+- [Templates](#templates)
+
+---
+
+## Overview
 My [obsidian](https://obsidian.md/) vault structure.
 
 It includes:
@@ -14,8 +26,11 @@ It includes:
 
 - Various markdown note templates
 
+
+  
 ---
-### Community Plugins
+
+## Dependencies
 
 The vault takes advantage of the following community plugins:
 
@@ -47,9 +62,6 @@ The vault takes advantage of the following community plugins:
 
 Daily notes are generated from the template [[daily_note]]. The Work Log in the daily note is used to inform weekly and monthly work summaries.
 
-![daily note](./5_system/assets/daily_note.png)
-
-
 #### Components of the Daily Note
 
 ##### Metadata
@@ -72,6 +84,7 @@ A section for documenting work activities with timestamped entries. The log incl
 - **Time Entries**: Entries formatted as `HH:MM-HH:MM` to track work periods.
 - **Tagging**: Ensures each entry includes a relevant tag (e.g., `#abmi` for organization-specific tasks).
 - **Break Monitoring**: Tracks and calculates total break time against a predefined limit.
+![daily note](./5_system/assets/daily_note.png)
 
 ##### Automated Validations
 A DataviewJS script is included in the daily note to validate the work log and flag entry errors:
@@ -84,6 +97,7 @@ A DataviewJS script is included in the daily note to validate the work log and f
   - Displays a warning if break time exceeds or falls below the allowed maximum.
 ##### Scratch
 A freeform space for notes, ideas, or temporary content not bound to a specific structure. 
+
 
 ### Weekly Note
 
