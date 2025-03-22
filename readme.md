@@ -1,7 +1,7 @@
 
 # Obsidian Vault
 
-My [obsidian](https://obsidian.md/) vault.
+My [obsidian](https://obsidian.md/) vault structure.
 
 It includes:
 - **Periodic notes**: Daily, weekly, and monthly notes.
