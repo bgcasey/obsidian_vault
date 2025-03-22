@@ -2,11 +2,9 @@
 title: git_instructions
 date: 2024-07-23
 type: general
-tags: " #code/shell #github "
+tags: " #code/shell #code/git "
 description: Code for backing up this folder to github.
 ---
-
-
 
 ```zsh
 cd /Users/brendan/Dropbox/0_obsidian
