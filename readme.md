@@ -95,6 +95,9 @@ A DataviewJS script is included in the daily note to validate the work log and f
 - **Break Time Monitoring**:
   - Computes the total break time from entries tagged as `#abmi/BREAK`.
   - Displays a warning if break time exceeds or falls below the allowed maximum.
+  
+![daily_note_warnings](./5_system/assets/daily_note_warnings.png)
+
 ##### Scratch
 A freeform space for notes, ideas, or temporary content not bound to a specific structure. 
 
