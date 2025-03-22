@@ -1,15 +1,18 @@
 
 # Obsidian Vault
 
-**Periodic notes**: Daily, weekly, and monthly notes.
+My [obsidian](https://obsidian.md/) vault.
 
-Organized using the  **PARA** method:
-- **Projects** for action focused work with deadlines, 
-- **Areas** for ongoing work
-- **Resources** for all reference materials
-- **Archive** for completed work
+It includes:
+- **Periodic notes**: Daily, weekly, and monthly notes.
 
-Various markdown note templates for [obsidian](https://obsidian.md/). 
+- Notes organized using the  **PARA** method:
+  - **Projects** for action focused work with deadlines, 
+  - **Areas** for ongoing work
+  - **Resources** for all reference materials
+  - **Archive** for completed work
+
+- Various markdown note templates
 
 ---
 ### Community Plugins
@@ -36,8 +39,6 @@ The vault takes advantage of the following community plugins:
 - **Tag Wrangler**
 - **Templater-Obsidian**
 
-
-Stored in this [github repo]
 
 ---
 ## Periodic notes
