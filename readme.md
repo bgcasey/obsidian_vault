@@ -34,25 +34,28 @@ It includes:
 
 The vault takes advantage of the following community plugins:
 
-- **Better Export PDF**
-- **Better Word Count**
-- **Chronology**
-- **Dataview**
-- **Multi-Column Markdown**
-- **Numerals**
-- **Advanced Slides**
-- **Day Planner**
-- **Excel to Markdown Table**
-- **File Link**
-- **Hotkeys for Templates**
-- **Minimal Settings**
-- **Pandoc**
-- **Pandoc Reference List**
-- **Projects**
-- **Tasks Plugin**
-- **Table Editor Obsidian**
-- **Tag Wrangler**
-- **Templater-Obsidian**
+| Plugin Name               | Description                                                                 |
+|---------------------------|-----------------------------------------------------------------------------|
+| Better Export PDF         | Enhances the default PDF export with styling and theme support.             |
+| Better Word Count         | Provides more accurate word/character counts and reading time estimates.    |
+| Chronology                | Visualizes notes on a timeline using frontmatter date fields.               |
+| Dataview                  | Enables querying and displaying notes as databases using inline code.       |
+| Multi-Column Markdown     | Allows layout of notes in multiple columns using special syntax.            |
+| Numerals                  | Adds spreadsheet-like number formatting to Dataview and other plugins.      |
+| Advanced Slides           | Turns notes into slideshow presentations using markdown.                    |
+| Day Planner               | Visual day planning with time blocks in markdown notes.                     |
+| Excel to Markdown Table   | Converts Excel clipboard content to markdown tables.                        |
+| File Link                 | Shows file icons in links and improves visual representation of attachments.|
+| Hotkeys for Templates     | Enables assigning hotkeys to specific templates for quick insertion.        |
+| Minimal Settings          | Adds customization options for the Minimal Obsidian theme.                  |
+| Pandoc                    | Exports markdown notes to various formats (Word, PDF, etc.) via Pandoc.     |
+| Pandoc Reference List     | Adds support for Pandoc-style reference lists from note metadata.           |
+| Projects                  | Project management with tasks, timelines, and Kanban boards.                |
+| Tasks Plugin              | Adds advanced task management with queries and recurring tasks.             |
+| Table Editor Obsidian     | Provides a spreadsheet-style UI for editing markdown tables.                |
+| Tag Wrangler              | Helps manage and rename tags across the vault.                              |
+| Templater-Obsidian        | Advanced template automation using JavaScript and logic.                    |
+
 
 
 ---
