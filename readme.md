@@ -83,15 +83,63 @@ A DataviewJS script is included in the daily note to validate the work log and f
   - Computes the total break time from entries tagged as `#abmi/BREAK`.
   - Displays a warning if break time exceeds or falls below the allowed maximum.
 ##### Scratch
-A freeform space for notes, ideas, or temporary content not bound to a specific structure.
-
+A freeform space for notes, ideas, or temporary content not bound to a specific structure. 
 
 ### Weekly Note
 
+The weekly note summarizes work and tasks for a given week. It uses the `dataview` plugin to:
+- extract text from the daily notes into work summaries. 
+- Summarize the week's meetings
+- Summarize the week's presentations
+- Summarize the scientific papers read
+
+The `Tasks` plug in is used to show open, completed, and in-progress tasks. 
+#### Components of the Weekly Note
+
+##### Metadata
+
+The metadata section at the top of the file contains structured YAML fields to provide context and enable programmatic querying across weekly notes.
+
+- **`date`**: The start date of the week (Monday) in `YYYY-MM-DD` format.
+- **`type`**: Specifies the note type as `weekly`.
+- **`tags`**: A hierarchical tag based on the year and month (e.g., `#periodic/2025/03`).
+- **`description`**: A general descriptor such as `"Weekly note for YYYY-MM-DD to YYYY-MM-DD"`.
+##### Navigation Links
+
+Quick-access links to time-based references for ease of navigation:
+
+- **Previous Week**: Links to the prior week’s note.
+- **Next Week**: Links to the upcoming week’s note.
+- **This Month**: Links to the monthly note that contains this week.
 
 
+![weekly_note_front_matter](./5_system/assets/weekly_note_front_matter.png)
+
+##### Time Budget
+
+A table showing the number of hours spent working on active projects and common work tasks. The table is populated using the `dataview` plugin to summarize the bulleted time entries from the daily notes. This section also includes a horizontal bar graph describing the percentage of time spent on each active project for the week.
 
 
+![weekly_note_time_budget](./5_system/assets/weekly_note_time_budget.png)
+
+##### Work Summary
+
+A table with descriptions of all of the tasks done over the week sorted by day of the week. The table also displays the time spent on each task. The table is populated using the `dataview` plugin to summarize the bulleted time entries from the daily notes. 
+
+![weekly_note_work_summary](./5_system/assets/weekly_note_work_summary.png)
+##### Meetings
+A list of the week's meetings.
+
+##### Papers read
+A table showing the scientific paper's read during the week. 
+##### Presentations
+A table showing all of the presentations given over the week. 
+
+![weekly_note_meetings_presentations_papers](./5_system/assets/weekly_note_meetings_presentations_papers.png)
+##### Tasks
+The week's  tasks pulled from notes all over the obsidian vault using the `Tasks` plugin. Tasks are organized by day of the week. 
+
+![weekly_note_tasks](./5_system/assets/weekly_note_tasks.png)
 
 ### Monthly Note
 
@@ -99,7 +147,7 @@ A freeform space for notes, ideas, or temporary content not bound to a specific 
 ---
 ## Templates
 
-This vault includes templates that use the `templater` and `dataview` plugins to autogenerate markdown documents. They are stored in the 5_system/templates folder.
+This vault includes templates that use the `templater` and `dataview` plugins to autogenerate markdown documents. Templates include the periodic notes described above. They are stored in the 5_system/templates folder.
 
 ### [writing.md](https://github.com/bgcasey/obsidian_vault/blob/main/5_system/templates/writing.md)
 

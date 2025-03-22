@@ -351,6 +351,7 @@ Sort file.name ASC
 
 ```
 ---
+## Tasks
 
 ```tasks
 status.type is not CANCELLED
