@@ -26,11 +26,7 @@ It includes:
 
 - Various markdown note templates
 
-
-  
----
-
-## Dependencies
+### Dependencies
 
 The vault takes advantage of the following community plugins:
 
