@@ -87,7 +87,7 @@ A section for documenting work activities with timestamped entries. The log incl
 ![daily note](./5_system/assets/daily_note.png)
 
 ##### Automated Validations
-A DataviewJS script is included in the daily note to validate the work log and flag entry errors:
+A DataviewJS script is included in the daily note to validate the work log and flag entry errors. It produces warning callouts with the following:
 - **Warnings**:
   - Missing tags (e.g., `#abmi`).
   - Improper time formats.
