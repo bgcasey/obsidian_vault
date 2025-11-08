@@ -1,0 +1,25 @@
+.workspace-tab-header[aria-label="Dashboard"] .workspace-tab-header-inner-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+/* Remove default icon */
+.workspace-tab-header[aria-label="Dashboard"] .workspace-tab-header-inner-icon svg {
+  display: none !important;
+}
+
+/* Add new icon */
+.workspace-tab-header[aria-label="Dashboard"] .workspace-tab-header-inner-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' fill='red'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 10;
+}
