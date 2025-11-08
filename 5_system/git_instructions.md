@@ -2,7 +2,9 @@
 title: git_instructions
 date: 2024-07-23
 type: general
-tags: " #code/shell #code/git "
+tags:
+  - "#code/shell"
+  - "#code/git"
 description: Code for backing up this folder to github.
 ---
 
