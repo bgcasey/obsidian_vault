@@ -1,10 +1,13 @@
 ---
 title: about
 date: <% tp.file.creation_date("YYYY-MM-DD") %>
+aliases:
+  - "tag "
 type: MOC
-status: 
-tags: "   "
-description: "MOC of the ____ Project."
+status:
+tags: 
+  -
+description: MOC of the ____ Project.
 ---
 ## About
 
@@ -16,7 +19,7 @@ description: "MOC of the ____ Project."
 ```dataview
 TABLE attendees, description
 FROM "0_periodic/meetings"
-WHERE any(filter(split(this.tags, " "), (t) => contains(lower(join(tags, " ")), lower(t))))
+WHERE any(this.tags, (t) => contains(lower(join(tags, " ")), lower(t)))
 SORT file.path DESC
 
 ```
@@ -26,7 +29,7 @@ SORT file.path DESC
 ```dataview
 TABLE without ID link(file.path, title) as "Title", dateformat(date, "yyyy-MM-dd") AS Date, description AS Description, file_link AS File
 WHERE contains(type, "presentation")
-AND any(filter(split(this.tags, " "), (t) => contains(lower(join(tags, " ")), lower(t))))
+AND any(this.tags, (t) => contains(lower(join(tags, " ")), lower(t)))
 SORT file.link DESC
 
 ```
@@ -35,7 +38,7 @@ SORT file.link DESC
 ## Notes
 
 ```dataview
-TABLE without ID link(file.path) as "Title", description AS "Description" FROM "1_projects" AND -"0_periodic/meetings" WHERE any(filter(split(this.tags, " "), (t) => contains(lower(join(tags, " ")), lower(t)))) AND type != "literature" AND type != "presentation" AND type != "writing"
+TABLE without ID link(file.path) as "Title", description AS "Description" FROM -"0_periodic/daily" AND -"0_periodic/meetings" WHERE any(this.tags, (t) => contains(lower(join(tags, " ")), lower(t))) AND type != "literature" AND type != "presentation" AND type != "writing"
 SORT file.path ASC
 
 ```
@@ -67,7 +70,7 @@ dv.table(["Title", "Description"],
 ```dataview
 Table without ID link(file.path, title) as "Title", author as "First Author", year as "Year", description as "Description", zotero_link as "Zotero", file_link as "PDF"
 FROM "2_areas/literature/primary_sources"
-WHERE any(filter(split(this.tags, " "), (t) => contains(lower(join(tags, " ")), lower(t))))
+WHERE any(this.tags, (t) => contains(lower(join(tags, " ")), lower(t)))
 SORT file.link ASC
 
 ```
@@ -87,4 +90,4 @@ sort by description
 
 
 
-<%*tp.file.rename("about");%>
+<%*await tp.file.rename("_about");%>
