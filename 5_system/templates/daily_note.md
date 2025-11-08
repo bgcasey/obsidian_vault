@@ -1,8 +1,11 @@
 ---
-date: {{date}}
+date: "<% tp.file.creation_date('YYYY-MM-DD') %>"
 type: daily
-tags: "#daily/{{date:YYYY}}/{{date:MM}}"
-description: "Daily note for {{date:dddd, MMMM D, YYYY}}"
+tags:
+  - "#daily/{{date:YYYY}}/{{date:MM}}"
+description: Daily note for {{date:dddd, MMMM D, YYYY}}
+deep_breath_done:
+standing_hours:
 ---
 
 [[<% tp.date.yesterday() %>|yesterday]]
