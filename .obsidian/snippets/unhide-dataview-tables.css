@@ -1,0 +1,24 @@
+/* Make Dataview blocks and their children visible in Minimal */
+.dataview, .dataview-view, .block-language-dataview, .block-language-dataviewjs {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Re-enable Dataview table layout if Minimal or a snippet altered it */
+.dataview .table-view-table { display: table !important; }
+.dataview .table-view-thead { display: table-header-group !important; }
+.dataview .table-view-tbody { display: table-row-group !important; }
+.dataview .table-view-tr    { display: table-row !important; }
+.dataview .table-view-td,
+.dataview .table-view-th    { display: table-cell !important; }
+
+/* Plain HTML tables we build ourselves */
+table.plain-view-table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+table.plain-view-table th, table.plain-view-table td {
+  border: 1px solid var(--background-modifier-border);
+  padding: 6px 8px; vertical-align: top;
+}
+
+/* If Minimal hides table heads via variables/snippets */
+:root { --dataview-hide-table-head: initial; }
