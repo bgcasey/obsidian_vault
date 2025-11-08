@@ -1,0 +1,51 @@
+/* ------------------------------------------------------------ */
+/* Custom styling for ABMI project tags in task descriptions    */
+/* These styles apply background and text color to tags         */
+/* Colors are optimized for dark mode readability               */
+/*                                                              */
+/* Styling reference:                                           */
+/* https://publish.obsidian.md/tasks/Advanced/Styling           */
+/* ------------------------------------------------------------ */
+
+.tag[data-tag-name="#abmi/ADMIN"] {
+  background: #8f6e4c;  /* darker brown */
+  color: #e2c6a6;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.tag[data-tag-name="#abmi/GENWRK"] {
+  background: #596642;  /* darker olive */
+  color: #bfd4a3;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.tag[data-tag-name="#abmi/INVSPC"] {
+  background: #607878;  /* darker blue-gray */
+  color: #cde2e2;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.tag[data-tag-name="#abmi/PIWO"] {
+  background: #374f59;  /* darker teal-blue */
+  color: #a9c7d4;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.tag[data-tag-name="#abmi/REMINT"] {
+  background: #223845;  /* darker slate navy */
+  color: #9bb6c6;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.tag[data-tag-name="#abmi/WILDFO"] {
+  background: #0b1c23;  /* darker near-black blue */
+  color: #7fa1b0;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
