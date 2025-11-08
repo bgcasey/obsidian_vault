@@ -45,7 +45,7 @@ The vault takes advantage of the following community plugins:
 
 ### Daily note
 
-Daily notes are generated from the template [[daily_note]]. The Work Log in the daily note is used to inform weekly and monthly work summaries.
+Daily notes are generated from the template [[periodic_daily_note]]. The Work Log in the daily note is used to inform weekly and monthly work summaries.
 
 #### Components of the Daily Note
 
@@ -144,6 +144,9 @@ The week's  tasks pulled from notes all over the obsidian vault using the `Tasks
 ![weekly_note_tasks](./5_system/assets/weekly_note_tasks.png)
 
 ### Monthly Note
+
+___
+## Work Hub
 
 
 ---
