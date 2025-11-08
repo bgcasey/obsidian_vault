@@ -2,8 +2,9 @@
 title: meetings_moc
 date: 2024-04-11
 type: general
-tags: " #moc #meetings   "
-description: Table view of meetings 
+tags:
+  - "#type/meetings"
+description: Table view of meetings
 ---
 
 ```dataview

@@ -1,8 +1,9 @@
 ---
 title: presentations_moc
 date: 2024-10-13
-type: general
-tags: " #moc #presentation    "
+type: moc
+tags:
+  - "#type/presentation"
 description: Table view of presentations
 ---
 
