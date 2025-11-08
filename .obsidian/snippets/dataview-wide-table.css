@@ -1,0 +1,9 @@
+/*
+Snippet to remove max width limits in dataview tables
+*/
+.dataview.table-view-table td {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  text-overflow: clip !important;
+}
