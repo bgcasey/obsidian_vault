@@ -70,6 +70,49 @@
    padding: 0 5px;
 }
 
+
+/* Style for 'projects_alloc' callout */
+.callout[data-callout="projects_alloc"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-gauge;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="projects_alloc"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold\\;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="projects_alloc"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="projects_alloc"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+
+
+
+
+
+
 /* Style for 'time' callout */
 .callout[data-callout="time"] {
    --callout-color: 124, 162, 191;
@@ -346,6 +389,63 @@
     font-size: 12px; /* Adjust the font size for table cells */
 }
 
+
+/* Style for 'projects_alloc' callout */
+.callout[data-callout="hub_projects_alloc"] {
+   --callout-color: 118, 169, 112;
+   --callout-icon: lucide-gauge;
+   position: relative;
+   border: 1px solid rgba(118, 169, 112, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_projects_alloc"] > .callout-title {
+   background-color: rgba(118, 169, 112, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold\\;
+   color: rgb(118, 169, 112);
+   border-bottom: 1px solid rgba(118, 169, 112, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_projects_alloc"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(118, 169, 112);
+}
+
+.callout[data-callout="hub_projects_alloc"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_projects_alloc"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_projects_alloc"] table {
+    font-size: 12px; /* Adjust the font size for tables */
+}
+.callout[data-callout="hub_projects_alloc"] .table-view-table thead th {
+  font-size: 11px;
+}
+
+.callout[data-callout="hub_projects_alloc"] table td {
+    font-size: 11px; /* Adjust the font size for table cells */
+}
+
+
+
+
+
 /* Style for 'time' callout */
 .callout[data-callout="hub_time"] {
    --callout-color: 124, 162, 191;
@@ -520,6 +620,65 @@
     font-size: 12px; /* Adjust the font size for table cells */
 }
 
+/* Style for 'stats callout */
+.callout[data-callout="hub_stats"] {
+   --callout-color: 124, 162, 191;
+   --callout-icon: lucide-activity;
+   position: relative;
+   border: 1px solid rgba(124, 162, 191, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_stats"] > .callout-title {
+   background-color: rgba(124, 162, 191, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: rgb(124, 162, 191);
+   border-bottom: 1px solid rgba(124, 162, 191, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_stats"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: rgb(124, 162, 191);
+}
+
+.callout[data-callout="hub_stats"] > .callout-content {
+   margin: 10px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_stats"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_stats"] {
+    font-size: 14px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Optional: Adjust line height for better readability */
+}
+
+.callout[data-callout="hub_stats"] table {
+    font-size: 14px; /* Adjust the font size for tables */
+}
+
+.callout[data-callout="hub_stats"] table th {
+    font-size: 13px; /* Adjust the font size for table headers */
+}
+
+.callout[data-callout="hub_stats"] table td {
+    font-size: 12px; /* Adjust the font size for table cells */
+}
+
+
 /* Style for 'tasks' callout */
 .callout[data-callout="hub_tasks"] {
    --callout-color: 118, 169, 112;
@@ -621,3 +780,59 @@
     font-size: 12px; /* Adjust the font size as needed */
     line-height: 1.5; /* Optional: Adjust line height for better readability */
 }
+
+
+
+/* Style for 'sticky note' callout */
+.callout[data-callout="hub_sticky"] {
+   --callout-color: 223, 126, 102;
+   --callout-icon: lucide-sticker;
+   position: relative;
+   border: 1px solid rgba(223, 126, 102, 0.4);
+   border-radius: 10px;
+   padding: 0;
+   background-color: transparent;
+   color: #d1d1e0;
+}
+
+.callout[data-callout="hub_sticky"] > .callout-title {
+   background-color: rgba(223, 126, 102, 0.2);
+   padding: 5px 10px;
+   border-radius: 8px 8px 0 0;
+   font-weight: bold;
+   color: #df7e66;
+   border-bottom: 1px solid rgba(223, 126, 102, 0.4);
+   display: flex;
+   align-items: center;
+}
+
+.callout[data-callout="hub_sticky"] > .callout-title::before {
+   content: var(--callout-icon);
+   margin-right: 8px;
+   font-size: 18px;
+   color: #df7e66;
+}
+
+.callout[data-callout="hub_sticky"] > .callout-content {
+   margin: 0px;
+   background-color: transparent;
+   padding: 0 5px;
+}
+
+.callout[data-callout="hub_sticky"] {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.callout[data-callout="hub_sticky"] table {
+    font-size: 14px;
+}
+
+.callout[data-callout="hub_sticky"] table th {
+    font-size: 13px;
+}
+
+.callout[data-callout="hub_sticky"] table td {
+    font-size: 12px;
+}
+
